@@ -1,20 +1,57 @@
 const path = require('path');
 const webpack = require("webpack");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 
 
 
 module.exports = {
-    entry: './assets/js/script.js',
-    output: {
-        path: path.resolve(__dirname, 'dist'),
-        filename: 'main.bundle.js'
+    entry: {
+        app: './assets/js/script.js',
+        events: './assets/js/events.js',
+        schedule: './assets/js/schedule.js',
+        tickets: './assets/js/tickets.js'
     },
+    output: {
+        path: __dirname + '/dist',
+        filename: '[name].bundle.js'
+    },
+    // in config object, add object to rules array.  This object identifies type of files (.jpg or .png or .gif)
+    module: {
+        rules: [
+            {
+                test: /\.jpg$/,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            esModule: false,
+                            name(file) {
+                                return '[path][name].[ext]';
+                            },
+                            publicPath: function (url) {
+                                return url.replace('../', '/assets/');
+                            }
+                        }
+                    },
+                    {
+                        loader: 'image-webpack-loader'
+                    }
+                ]
+            }
+        ]
+    },
+
+
     plugins: [
         new webpack.ProvidePlugin({
             $: "jquery",
             jQuery: "jquery"
         }),
+        new BundleAnalyzerPlugin({
+            analyzerMode: "static", // the report outputs to an HTML file in the dist folder
+        })
+
     ],
     mode: 'development'
 };
