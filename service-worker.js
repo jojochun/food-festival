@@ -17,10 +17,7 @@ const FILES_TO_CACHE = [
     "./dist/schedule.bundle.js"
 ];
 
-const APP_PREFIX = 'FoodFest-';
-const VERSION = 'version_01';
-const CACHE_NAME = APP_PREFIX + VERSION;
-
+// cache resources
 self.addEventListener('install', function (e) {
     // wait until work is complete before terminating service worker
     e.waitUntil(
@@ -31,6 +28,7 @@ self.addEventListener('install', function (e) {
     )
 })
 
+// delete outdated caches
 self.addEventListener('activate', function (e) {
     e.waitUntil(
         caches.keys().then(function (keyList) {
@@ -51,7 +49,7 @@ self.addEventListener('activate', function (e) {
     );
 });
 
-
+// respond with cached resources
 self.addEventListener('fetch', function (e) {
     console.log('fetch request : ' + e.request.url)
     e.respondWith(
