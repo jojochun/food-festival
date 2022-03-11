@@ -1,14 +1,8 @@
 require('bootstrap');
-
-// import the 2 images
-const img1 = require('../../assets/img/food-table.jpg');
-const img2 = require('../../assets/img/grill.jpg');
-// const img1 = require("../img/food-table.jpg");
-// const img2 = require("../img/grill.jpg");
-
+const img1 = require("../img/food-table.jpg");
+const img2 = require("../img/grill.jpg");
 
 $(document).ready(function () {
-
   // First image is hard coded in index.html
   const carouselSlides = [
     {
@@ -25,7 +19,7 @@ $(document).ready(function () {
       btnText: "Purchase Tickets",
       btnUrl: "tickets.html"
     },
-  ]
+  ];
 
   carouselSlides.forEach((slide, i) => {
     $('.carousel-inner').append(`
@@ -46,6 +40,5 @@ $(document).ready(function () {
         </div>
     </div>
   </div>`)
-
   })
 });
